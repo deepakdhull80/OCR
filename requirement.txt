@@ -1,2 +1,2 @@
-numpy
-pandas
+pip install PIL
+pip install pytesseract
