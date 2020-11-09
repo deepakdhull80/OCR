@@ -3,6 +3,7 @@ try:
 except ImportError:
     import Image
 import pytesseract
+import os
 
 pytesseract.pytesseract.tesseract_cmd ="C:/Program Files (x86)/Tesseract-OCR/tesseract"
 
@@ -17,11 +18,22 @@ tessdata_dir_config = '--tessdata-dir "C:/Program Files (x86)/Tesseract-OCR/tess
 # f.close()
 # d.close()
 
-image=Image.open('files/2.jpg')
+files='files'
+filename='files/2.jpg'
 
-data=pytesseract.image_to_string(image,config=tessdata_dir_config)
+def getFileName(files):
+	for file in os.listdir(files):
+		with open(file.split('.')[0]+".txt",'w') as p:
+			p.write(getData(files+'/'+file))
 
-with open("data.txt",'w') as p:
-	p.write(data)
-# print(data)
+
+def getData(filename):
+	image=Image.open(filename)
+	data=pytesseract.image_to_string(image,config=tessdata_dir_config)
+	return data
+
+getFileName(files)
+
+# with open("data.txt",'w') as p:
+# 	p.write(getData(filename))
 
